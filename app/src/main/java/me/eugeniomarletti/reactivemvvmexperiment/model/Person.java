@@ -44,7 +44,7 @@ public class Person
     @NotNull
     public Property<Integer> age()
     {
-        return age.asReadOnly();
+        return age;
     }
 
     @Override

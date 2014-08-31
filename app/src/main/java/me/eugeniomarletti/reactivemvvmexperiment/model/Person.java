@@ -1,14 +1,13 @@
 package me.eugeniomarletti.reactivemvvmexperiment.model;
 
+import me.eugeniomarletti.reactiveandroid.property.ComputedProperty;
 import me.eugeniomarletti.reactiveandroid.property.ImmutableProperty;
-import me.eugeniomarletti.reactiveandroid.property.ObservableProperty;
 import me.eugeniomarletti.reactiveandroid.property.Property;
 import me.eugeniomarletti.reactiveandroid.utils.Today;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
-import rx.Observable;
 
 public class Person
 {
@@ -20,12 +19,9 @@ public class Person
     {
         this.name = new ImmutableProperty<>(name);
         this.dateOfBirth = new ImmutableProperty<>(dateOfBirth);
-
-        final ObservableProperty<Integer> age = new ObservableProperty<>();
-        Observable.combineLatest(this.dateOfBirth.observe(), Today.observe(),
-                                 (_dateOfBirth, today) -> computeAge(_dateOfBirth, today))
-                  .subscribe(_age -> age.set(_age));
-        this.age = age.asReadOnly();
+        age = ComputedProperty.make(
+                this.dateOfBirth.observe(),Today.observe(),
+                (_dateOfBirth, today) -> computeAge(_dateOfBirth, today));
     }
 
     public static int computeAge(@NotNull LocalDate dateOfBirth, @NotNull LocalDate now)

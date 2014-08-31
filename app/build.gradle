@@ -44,9 +44,13 @@ retrolambda {
 }
 
 dependencies {
-    provided "com.intellij:annotations:+@jar"
+    provided 'com.intellij:annotations:12.0'
 
-    def rxjavaVersion = '0.19.4'
+    compile 'joda-time:joda-time:2.3'
+
+    compile 'com.jakewharton:butterknife:5.1.1'
+
+    def rxjavaVersion = '0.20.3'
     compile "com.netflix.rxjava:rxjava-core:$rxjavaVersion"
     compile "com.netflix.rxjava:rxjava-android:$rxjavaVersion"
     compile "com.netflix.rxjava:rxjava-async-util:$rxjavaVersion"

@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">ReactiveMVVMExperiment</string>
+    <string name="title_activity_list">List</string>
+    <plurals name="number_of_people">
+        <item quantity="one">1 person</item>
+        <item quantity="other">%s people</item>
+    </plurals>
+
 </resources>

@@ -20,13 +20,8 @@ public class Person
         this.name = new ImmutableProperty<>(name);
         this.dateOfBirth = new ImmutableProperty<>(dateOfBirth);
         age = ComputedProperty.make(
-                this.dateOfBirth.observe(),Today.observe(),
-                (_dateOfBirth, today) -> computeAge(_dateOfBirth, today));
-    }
-
-    public static int computeAge(@NotNull LocalDate dateOfBirth, @NotNull LocalDate now)
-    {
-        return Years.yearsBetween(dateOfBirth, now).getYears();
+                this.dateOfBirth.observe(), Today.observe(),
+                (_dateOfBirth, today) -> Years.yearsBetween(_dateOfBirth, today).getYears());
     }
 
     @NotNull

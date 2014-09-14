@@ -11,7 +11,7 @@ repositories {
     jcenter()
 }
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'retrolambda'
 
 android {
@@ -19,7 +19,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "me.eugeniomarletti.reactivemvvmexperiment"
+        applicationId "me.eugeniomarletti.reactiveandroid"
         minSdkVersion 15
         targetSdkVersion 20
         versionCode 1
@@ -44,11 +44,14 @@ retrolambda {
 }
 
 dependencies {
-    provided 'com.intellij:annotations:12.0'
+    dependencies {
+        provided 'com.intellij:annotations:12.0'
 
-    compile 'joda-time:joda-time:2.3'
+        compile 'joda-time:joda-time:2.3'
 
-    compile 'com.jakewharton:butterknife:5.1.1'
-
-    compile project(':lib')
+        def rxjavaVersion = '0.20.3'
+        compile "com.netflix.rxjava:rxjava-core:$rxjavaVersion"
+        compile "com.netflix.rxjava:rxjava-android:$rxjavaVersion"
+        compile "com.netflix.rxjava:rxjava-async-util:$rxjavaVersion"
+    }
 }

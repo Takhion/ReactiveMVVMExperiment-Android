@@ -47,8 +47,8 @@ public class UnsubscribeOnActivityDestroyOperator<T> implements Observable.Opera
 
         protected Callbacks() { }
 
-        public static void add(@NotNull Application application,
-                               @Nullable Object ref, @NotNull Subscriber<?> subscriber)
+        synchronized public static void add(
+                @NotNull Application application, @Nullable Object ref, @NotNull Subscriber<?> subscriber)
         {
             if (instance == null)
             {
@@ -70,7 +70,8 @@ public class UnsubscribeOnActivityDestroyOperator<T> implements Observable.Opera
             }
         }
 
-        public static void onUnsubscribe(@Nullable WeakReference<?> weakRef, @Nullable Subscriber<?> subscriber)
+        synchronized public static void onUnsubscribe(
+                @Nullable WeakReference<?> weakRef, @Nullable Subscriber<?> subscriber)
         {
             if (instance != null) instance._onUnsubscribe(weakRef, subscriber);
         }
@@ -93,10 +94,10 @@ public class UnsubscribeOnActivityDestroyOperator<T> implements Observable.Opera
             }
         }
 
-        protected void onActivityDestroyed(@NotNull Activity activity, boolean checkIsFinishing)
+        protected void checkActivityIsFinishing(@NotNull Activity activity, boolean check)
         {
             //noinspection ConstantConditions
-            if (activity != null && (!checkIsFinishing || activity.isFinishing()))
+            if (activity != null && (!check || activity.isFinishing()))
             {
                 final Set<Subscriber<?>> set = map.remove(activity);
                 if (set != null)
@@ -110,7 +111,7 @@ public class UnsubscribeOnActivityDestroyOperator<T> implements Observable.Opera
             }
         }
 
-        protected static void cleanup()
+        synchronized protected static void cleanup()
         {
             if (instance != null && instance.map.size() == 0)
             {
@@ -125,43 +126,43 @@ public class UnsubscribeOnActivityDestroyOperator<T> implements Observable.Opera
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState)
         {
-            onActivityDestroyed(activity, true);
+            checkActivityIsFinishing(activity, true);
         }
 
         @Override
         public void onActivityStarted(Activity activity)
         {
-            onActivityDestroyed(activity, true);
+            checkActivityIsFinishing(activity, true);
         }
 
         @Override
         public void onActivityResumed(Activity activity)
         {
-            onActivityDestroyed(activity, true);
+            checkActivityIsFinishing(activity, true);
         }
 
         @Override
         public void onActivityPaused(Activity activity)
         {
-            onActivityDestroyed(activity, true);
+            checkActivityIsFinishing(activity, true);
         }
 
         @Override
         public void onActivityStopped(Activity activity)
         {
-            onActivityDestroyed(activity, true);
+            checkActivityIsFinishing(activity, true);
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle outState)
         {
-            onActivityDestroyed(activity, true);
+            checkActivityIsFinishing(activity, true);
         }
 
         @Override
         public void onActivityDestroyed(Activity activity)
         {
-            onActivityDestroyed(activity, false);
+            checkActivityIsFinishing(activity, false);
         }
     }
 }

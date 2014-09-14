@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import me.eugeniomarletti.reactiveandroid.Observable_;
+import me.eugeniomarletti.reactiveandroid.Observable_Android;
 import me.eugeniomarletti.reactiveandroid.collection.ObservableList;
 import me.eugeniomarletti.reactiveandroid.collection.ReactiveAdapter;
 import me.eugeniomarletti.reactiveandroid.property.Property;
@@ -44,7 +44,7 @@ public class ListActivity extends Activity
     {
         // number of people -> actionbar title
         displayNumberOfPeople(getNumberOfPeople()); // first time
-        Observable_.androidSafe(viewModel.people().observe(), this)
+        Observable_Android.androidSafe(viewModel.people().observe(), this)
                    .subscribe($ -> displayNumberOfPeople(getNumberOfPeople()));
 
         // people in list
@@ -112,7 +112,7 @@ public class ListActivity extends Activity
 
         protected <T> void subscribe(ViewHolder holder, Property<T> property, Action1<T> onNext)
         {
-            holder.subscriptions.add(Observable_.androidSafe(property.observe(), activity).subscribe(onNext));
+            holder.subscriptions.add(Observable_Android.androidSafe(property.observe(), activity).subscribe(onNext));
         }
 
         protected static class ViewHolder

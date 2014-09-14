@@ -1,0 +1,32 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:2.0.0'
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'retrolambda'
+
+retrolambda {
+    jdk System.getenv("JAVA8_HOME")
+    oldJdk System.getenv("JAVA7_HOME")
+    javaVersion JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    compile 'com.intellij:annotations:12.0'
+
+    compile 'joda-time:joda-time:2.3'
+
+    def rxjavaVersion = '0.20.3'
+    compile "com.netflix.rxjava:rxjava-core:$rxjavaVersion"
+    compile "com.netflix.rxjava:rxjava-android:$rxjavaVersion"
+    compile "com.netflix.rxjava:rxjava-async-util:$rxjavaVersion"
+}

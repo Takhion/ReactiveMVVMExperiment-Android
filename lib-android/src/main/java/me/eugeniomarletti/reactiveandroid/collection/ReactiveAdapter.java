@@ -2,7 +2,7 @@ package me.eugeniomarletti.reactiveandroid.collection;
 
 import android.app.Activity;
 import android.widget.BaseAdapter;
-import me.eugeniomarletti.reactiveandroid.Observable_;
+import me.eugeniomarletti.reactiveandroid.Observable_Android;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ReactiveAdapter<T> extends BaseAdapter
@@ -12,8 +12,8 @@ public abstract class ReactiveAdapter<T> extends BaseAdapter
     public ReactiveAdapter(@NotNull Activity activity, @NotNull ObservableList<T> observableList)
     {
         this.observableList = observableList;
-        Observable_.androidSafe(observableList.observe(), activity)
-                   .subscribe($ -> notifyDataSetChanged());
+        Observable_Android.androidSafe(observableList.observe(), activity)
+                    .subscribe($ -> notifyDataSetChanged());
     }
 
     public T _getItem(int position)

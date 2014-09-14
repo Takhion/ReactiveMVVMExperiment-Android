@@ -1,6 +1,5 @@
 package me.eugeniomarletti.reactiveandroid.property;
 
-import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rx.Observable;
@@ -32,9 +31,9 @@ public class ObservableProperty<T> implements Property<T>
     {
         if (this.value != value)
         {
-            Log.w("ObservableProperty", String.format("old value: %s | new value: %s",
-                                                      this.value == null ? "null" : this.value,
-                                                      value == null ? "null" : value));
+            //Log.w("ObservableProperty", String.format("old value: %s | new value: %s",
+            //                                          this.value == null ? "null" : this.value,
+            //                                          value == null ? "null" : value));
             this.value = value;
             subject.onNext(value);
         }

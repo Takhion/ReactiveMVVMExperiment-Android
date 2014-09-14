@@ -3,6 +3,8 @@ buildscript {
         jcenter()
     }
     dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         classpath 'me.tatarka:gradle-retrolambda:2.0.0'
     }
 }
@@ -12,6 +14,7 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'retrolambda'
 
 android {
@@ -35,6 +38,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 retrolambda {
@@ -50,5 +56,5 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:5.1.1'
 
-    compile project(':lib')
+    compile project(':lib-android')
 }

@@ -2,21 +2,14 @@ package me.eugeniomarletti.reactiveandroid;
 
 import android.app.Activity;
 import me.eugeniomarletti.reactiveandroid.operators.UnsubscribeOnActivityDestroyOperator;
-import me.eugeniomarletti.reactiveandroid.operators.WeakReferenceOperator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class Observable_
+public class Observable_Android
 {
-    protected Observable_() { }
-
-    @NotNull
-    public static <T> Observable<T> weakReference(@NotNull Observable<T> observable)
-    {
-        return observable.lift(new WeakReferenceOperator<>());
-    }
+    protected Observable_Android() { }
 
     @NotNull
     public static <T> Observable<T> unsubscribeOnActivityDestroy(@NotNull Observable<T> observable,

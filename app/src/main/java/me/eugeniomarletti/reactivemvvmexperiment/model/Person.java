@@ -3,6 +3,7 @@ package me.eugeniomarletti.reactivemvvmexperiment.model;
 import me.eugeniomarletti.reactiveandroid.property.ComputedProperty;
 import me.eugeniomarletti.reactiveandroid.property.ImmutableProperty;
 import me.eugeniomarletti.reactiveandroid.property.Property;
+import me.eugeniomarletti.reactiveandroid.annotation.PublicProperty;
 import me.eugeniomarletti.reactiveandroid.utils.Today;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,8 +12,11 @@ import org.joda.time.Years;
 
 public class Person
 {
+    @PublicProperty(readOnly = true)
     protected final Property<String>    name;
+    @PublicProperty(readOnly = true)
     protected final Property<LocalDate> dateOfBirth;
+    @PublicProperty(readOnly = true)
     protected final Property<Integer>   age;
 
     public Person(String name, LocalDate dateOfBirth)
